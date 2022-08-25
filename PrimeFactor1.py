@@ -21,16 +21,19 @@ def findNextPrime(previousPrime):
         #if any for loop values divided incrementer, increase incrementer by 1
         i = i + 1
 
-#this is the main loop, which tests primes returned from function on the input value as long as the prime is smaller than the tested value
-while lastPrime < testInput:
+#this is the main loop, which tests primes returned from function on the input value as long as the prime is no greater than the tested value
+while lastPrime <= testInput:
     print("Now Testing", lastPrime, "on", testInput)
 
-    #if the tested prime is a factor of the input, divide input by prime to determine next value to test
-    if testInput % lastPrime == 0:
-        testInput = testInput / lastPrime
-        allPrimeFactors.append(lastPrime)
-    lastPrime = findNextPrime(lastPrime)
+    #if the tested prime is not a factor of the input, find next prime and restart while loop
+    if testInput % lastPrime != 0:
+        lastPrime = findNextPrime(lastPrime)
+        continue
 
-allPrimeFactors.append(lastPrime)
+    #if the tested prime is a factor of the input, add it to list of primes and divide input by prime to generate next test input
+    allPrimeFactors.append(lastPrime)
+    testInput = testInput / lastPrime
+
+
 print("All prime factors of", input, "are", allPrimeFactors)
 print("The greatest prime factor is", lastPrime)
